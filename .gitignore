@@ -1,2 +1,6 @@
 *.swp
 *.swo
+
+lib/
+target/
+project/
