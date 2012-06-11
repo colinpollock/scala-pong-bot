@@ -5,8 +5,8 @@ import org.jibble.pircbot._
 import com.xlorm.pongbot.models.{ Player, Game }
 import com.xlorm.pongbot.dao.{ PlayerDAO, GameDAO }
 
-class PongBot extends PircBot {
-  this.setName("PongBot")
+class PongBot(botName: String) extends PircBot {
+  this.setName(botName)
 
 
   override def onMessage(
@@ -119,10 +119,13 @@ object PongBot {
   
 
   def main(args: Array[String]){
-    val bot = new PongBot
+    require(args.size > 1, "First arg must be channel to join")
+    val channel = args(0)
+    val name = args(1)
+
+    val bot = new PongBot(name)
     bot.setVerbose(true)
     bot.connect("irc.freenode.net")
-    bot.joinChannel("#pongtest")
-    //bot.joinChannel("#wordnik-inc")
+    bot.joinChannel(channel)
   }
 }
