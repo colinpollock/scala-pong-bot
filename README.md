@@ -1,5 +1,8 @@
-README
+pong-bot
 ======
+
+An IRC bot to track a ping pong ladder
+
 
 TODO
 ----
@@ -36,4 +39,3 @@ PARAMS
 * Number of provisional games.
 * Default starting rank.
 * ELO params.
-
