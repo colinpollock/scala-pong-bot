@@ -1,14 +1,25 @@
 README
 ======
 
-Keeps track of the results of challenge games and updates each player's rank
-after a game.
+TODO
+----
+* rm unneeded deps
+* change package to com.xlorm
+* clean up updateRatings
+* tests for ELO
+* logging
+* sbt build
+* finish Readme
+* make persisted config object to hold:
+  * number of games as provisional
+  * initial rating
+  * K value
+
 
 
 Functionality
 -------------
-
-
+!!!TODO
 !pong leaders
 !pong robovoyo defeated rpidikiti 21-18
 
@@ -26,12 +37,3 @@ PARAMS
 * Default starting rank.
 * ELO params.
 
-
-TODO
-====
-* Set up SBT.
-* Use system locally w/o IRC.
-* Get IRC bot connection working.
-* Set up ELO ranking stuff.
-* What to do when both players are provisional?
-* Add tests.
