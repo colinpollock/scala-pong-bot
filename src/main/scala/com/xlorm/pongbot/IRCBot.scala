@@ -1,9 +1,9 @@
-package net.colinpollock.pongbot
+package com.xlorm.pongbot
 
 import org.jibble.pircbot._
 
-import net.colinpollock.pongbot.models.{ Player, Game }
-import net.colinpollock.pongbot.dao.{ PlayerDAO, GameDAO }
+import com.xlorm.pongbot.models.{ Player, Game }
+import com.xlorm.pongbot.dao.{ PlayerDAO, GameDAO }
 
 class PongBot extends PircBot {
   this.setName("PongBot")

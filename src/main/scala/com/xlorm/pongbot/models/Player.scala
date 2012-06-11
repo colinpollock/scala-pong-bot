@@ -1,4 +1,4 @@
-package net.colinpollock.pongbot.models
+package com.xlorm.pongbot.models
 
 import java.util.Date
 

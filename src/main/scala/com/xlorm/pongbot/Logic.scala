@@ -1,9 +1,9 @@
-package net.colinpollock.pongbot
+package com.xlorm.pongbot
 
 import org.bson.types.ObjectId
 
-import net.colinpollock.pongbot.models.{ Player, Game }
-import net.colinpollock.pongbot.dao.{ PlayerDAO, GameDAO}
+import com.xlorm.pongbot.models.{ Player, Game }
+import com.xlorm.pongbot.dao.{ PlayerDAO, GameDAO}
  
 
 object GameLogic {

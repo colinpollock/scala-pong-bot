@@ -1,4 +1,4 @@
-package net.colinpollock.pongbot.dao
+package com.xlorm.pongbot.dao
 
 import org.bson.types.ObjectId
 
@@ -9,7 +9,7 @@ import com.novus.salat.global._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoConnection
 
-import net.colinpollock.pongbot.models.Player
+import com.xlorm.pongbot.models.Player
 
 
 //TODO: pull out db name

@@ -1,4 +1,4 @@
-package net.colinpollock.pongbot.models
+package com.xlorm.pongbot.models
 
 import java.util.Date
 
@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 
 import com.novus.salat.annotations.Key
 
-import net.colinpollock.pongbot.dao.GameDAO
+import com.xlorm.pongbot.dao.GameDAO
 
 case class Game (
   winnerName: String,

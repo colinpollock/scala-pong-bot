@@ -1,4 +1,4 @@
-package net.colinpollock.pongbot
+package com.xlorm.pongbot
 
 //TODO: change filename
 
