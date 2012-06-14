@@ -79,30 +79,4 @@ object GameLogic {
 
     Game.sortByDate(games).takeRight(n).map(_.infoString).mkString("\n")
   }
-
-
-  /*
-  def main(args: Array[String]): Unit = {
-    addPlayer("xlorm", false)
-    addPlayer("robovoyo", false)
-    (1 to 10).foreach{i =>
-      addGame("xlorm", "robovoyo", 21, 18)
-      println(ratings)
-    }
-    println("***********")
-    (1 to 3).foreach{i =>
-      addGame("robovoyo", "xlorm", 21, 13)
-      println(ratings)
-    }
-
-    val xlorm = PlayerDAO.findOneByID("xlorm").get
-    val robovoyo = PlayerDAO.findOneByID("robovoyo").get
-
-    println("There are %d players in the DB".format(PlayerDAO.count))
-    println("There are %d games in the DB".format(GameDAO.count))
-    println(lastNGamesInfo(5))
-    println("xlorm's rating: %d".format(xlorm.rating))
-    println("robovoyo's rating: %d".format(robovoyo.rating))
-  }
-  */
 }
