@@ -4,9 +4,6 @@ package com.xlorm.pongbot
 
 object ELORating {
 
-//  def calculate(rankA: Double, rankB: Double): (Double, Double) =
-//    (calcOneRank(rankA, rankB), calcOneRank(rankB, rankA))
-
 
   private def kValueFromRating(rating: Double): Int = rating match {
     case r if r > 2400 => 16
