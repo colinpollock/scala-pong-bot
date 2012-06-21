@@ -22,6 +22,8 @@ object GameDAO extends SalatDAO[Game, ObjectId] (
 
   def iterator: Iterator[Game] = find(MongoDBObject())
 
+  def dateSortedGames: Seq[Game] = Game.sortByDate(find(MongoDBObject()).toSeq)
+
   def count: Long = count(MongoDBObject())
 
 

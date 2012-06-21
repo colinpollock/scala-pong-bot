@@ -11,7 +11,7 @@ case class Player (
   isProvisional: Boolean,
   numWins: Int = 0,
   numLosses: Int = 0,
-  dateAdded: Date = new Date
+  dateAdded: Long = System.currentTimeMillis / 1000
 ) {
   def numGames: Int = numWins + numLosses
 

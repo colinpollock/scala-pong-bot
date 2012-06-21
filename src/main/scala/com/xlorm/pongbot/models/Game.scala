@@ -14,10 +14,13 @@ case class Game (
   loserName: String,
   winnerScore: Int,
   loserScore: Int,
-  date: Date = new Date,
+  date: Long = System.currentTimeMillis,
   @Key("_id") id: ObjectId = new ObjectId
 ) {
   import Game.jsonMapper
+
+
+  //TODO: long to date string for this below
   def infoString: String = """%s beat %s %d to %d on %s""".format(
     winnerName, loserName, winnerScore, loserScore, date.toString
   )
@@ -54,6 +57,7 @@ object Game {
 
   def apply(gameJson: String): Option[Game] = fromJson(gameJson)
 
+
   def sortByDate(games: Seq[Game]): Seq[Game] = 
-    games.sortWith((g1, g2) => g1.date.before(g2.date))
+    games.sortWith((g1, g2) => g1.date < g2.date)
 }
