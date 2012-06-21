@@ -117,12 +117,12 @@ object PongBot {
 
   def main(args: Array[String]){
     require(args.size > 1, "First arg must be channel to join")
-    val channel = args(0)
+    val channels = args(0).split(",")
     val name = args(1)
 
     val bot = new PongBot(name)
     bot.setVerbose(true)
     bot.connect("irc.freenode.net")
-    bot.joinChannel(channel)
+    channels.foreach(bot.joinChannel(_))
   }
 }
