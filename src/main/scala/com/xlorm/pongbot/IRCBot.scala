@@ -41,7 +41,6 @@ object PongBot {
     case Seq("commands") => Right(commandsList)
     case Seq(winner, "beat", loser, winScore, "to", loseScore) =>
       Left(addGame(winner, loser, winScore.toInt, loseScore.toInt))
-    case Seq("players") => Right(listPlayerNames)
     case Seq("add", "player", playerName) => Left(addPlayer(playerName))
     case Seq("player", "info", playerName) => Left(playerInfo(playerName))
     case Seq("ladder") => Right(ladder)
@@ -90,8 +89,6 @@ object PongBot {
   def recentGames: Seq[String] = 
     Game.sortByDate(GameDAO.iterator.toSeq).take(10).map(_.infoString)
   
-
-  def listPlayerNames: Seq[String] = PlayerDAO.iterator.map(_.name).toSeq
 
   def headToHead(p1Name: String, p2Name: String): String =
     (PlayerDAO.findByName(p1Name), PlayerDAO.findByName(p2Name)) match {
