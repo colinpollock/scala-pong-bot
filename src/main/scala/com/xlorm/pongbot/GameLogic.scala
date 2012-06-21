@@ -6,18 +6,18 @@ import com.xlorm.pongbot.models.{ Player, Game }
 import com.xlorm.pongbot.dao.{ PlayerDAO, GameDAO}
  
 
+
+
 object GameLogic {
-  //TODO: pull this out into config
-  val GAMES_AS_PROVISIONAL = 0
-  val DEFAULT_START_RATING = 1600
+  
+  val DEFAULT_START_RATING = System.getProperty("startRating") match {
+    case Int(n) => n
+    case _ => 1600
+  }
 
 
-  /*
-   * startrating defaults to some basic rating (1k?), provisional at first
-   */
   def addPlayer(
     name: String,
-    isProvisional: Boolean = true,
     startrating: Int = DEFAULT_START_RATING
   ): Option[String] = {
     PlayerDAO.findByName(name) match {
@@ -26,7 +26,7 @@ object GameLogic {
         println("LOG: player %s exists".format(player.name))
         Some(player.name)
       }
-      case None => PlayerDAO.insert(Player(name, startrating, isProvisional))
+      case None => PlayerDAO.insert(Player(name, startrating))
     }
   }
 
@@ -42,24 +42,27 @@ object GameLogic {
   }
 
 
-  private def updateRatings(winner: Player, loser: Player){
+  def updateRatings(winner: Player, loser: Player){
     val (winnerRating, loserRating) = 
       ELORating.updated(winner.rating, loser.rating)
 
-    var newWinner = winner.copy(numWins = winner.numWins + 1)
-    if (!loser.isProvisional) { newWinner = winner.copy(rating = winnerRating) }
-    if (newWinner.isProvisional && newWinner.numGames >= GAMES_AS_PROVISIONAL) {
-      newWinner = newWinner.copy(isProvisional = false)
-    }
+
+    val newWinner = winner.copy(
+      numWins = winner.numWins + 1,
+      rating = winnerRating)
+
     PlayerDAO.save(newWinner)
 
-    var newLoser = loser.copy(numLosses = loser.numLosses + 1)
-    if (!winner.isProvisional) { newLoser = loser.copy(rating = loserRating) }
-    if (newLoser.isProvisional && newLoser.numGames >= GAMES_AS_PROVISIONAL) {
-      newLoser = newLoser.copy(isProvisional = false)
-    }
+    val newLoser = loser.copy(
+      numLosses = loser.numLosses + 1,
+      rating = loserRating)
+
     PlayerDAO.save(newLoser)
   }
+
+  def makeGameHistString: String =
+    GameDAO.iterator.map(_.infoString).mkString("\n")
+
 
 
   def headToHead(p1: Player, p2: Player): (Int, Int) = 
@@ -78,5 +81,13 @@ object GameLogic {
     }
 
     Game.sortByDate(games).takeRight(n).map(_.infoString).mkString("\n")
+  }
+}
+
+object Int {
+  def unapply(s : String) : Option[Int] = try {
+    Some(s.toInt)
+  } catch {
+    case _ : java.lang.NumberFormatException => None
   }
 }
