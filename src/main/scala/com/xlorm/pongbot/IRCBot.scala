@@ -87,7 +87,7 @@ object PongBot {
   }.map(_.infoString)
 
   def recentGames: Seq[String] = 
-    Game.sortByDate(GameDAO.iterator.toSeq).take(10).map(_.infoString)
+    GameDAO.dateSortedGames.reverse.take(10).map(_.infoString)
   
 
   def headToHead(p1Name: String, p2Name: String): String =
