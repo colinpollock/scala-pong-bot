@@ -16,6 +16,8 @@ class PongBot(botName: String) extends PircBot {
     hostname: String, 
     message: String
   ){
+    //TODO: handle missing colon
+    //TODO: use bot's name, not default "PongBot"
     if (message.startsWith("!pong ")){
       callDispatch(message.toLowerCase.substring(6), channel)
     } else if (message.startsWith("PongBot: ")) {
@@ -55,11 +57,12 @@ object PongBot {
     "{WINNER} beat {LOSER} {SCORE} to {SCORE}: enter a new game",
     "add player {PLAYER_NAME}: add a new player",
     "player info {PLAYER_NAME}: show info for player",
-    "players: show all current players' names",
     "ladder: show all players ordered by ranks",
     "{PLAYER_NAME} vs {PLAYER_NAME}: show the head to head record",
     "recent games: show the 10 most recent games"
   )
+
+
   
 
   def addGame(
@@ -67,19 +70,39 @@ object PongBot {
     loserName: String, 
     winnerScore: Int, 
     loserScore: Int
-  ): String =
-    (PlayerDAO.findByName(winnerName), PlayerDAO.findByName(loserName)) match {
-      case (Some(winner), Some(loser)) => {
-        GameLogic.addGame(winner, loser, winnerScore, loserScore) match {
-          case Some(gm) => "Successfully added game"
-          case None => "Failed to add game"
+  ): String = 
+    if (!GameLogic.isValidGameScore(winnerScore, loserScore))
+      "Invalid game scores. Must be 21 to 0<=n<=19 or 22 to 20"
+    else
+      (PlayerDAO.findByName(winnerName), PlayerDAO.findByName(loserName)) match {
+        case (Some(winner), Some(loser)) => {
+          GameLogic.addGame(winner, loser, winnerScore, loserScore) match {
+            case Some(gm) => {
+              val winnerInitRating = winner.rating
+              val loserInitRating = loser.rating
+              val winnerNewRating = 
+                PlayerDAO.findByName(winnerName).map(_.rating).getOrElse(0)
+
+              val loserNewRating =
+                PlayerDAO.findByName(loserName).map(_.rating).getOrElse(0)
+  
+              val winnerDiff = winnerNewRating - winnerInitRating
+              val loserDiff = loserNewRating - loserInitRating
+  
+              "%s gained %d points (%d to %d) and %s lost %d points (%d to %d)".format(
+                winnerName, winnerDiff, winnerInitRating, winnerNewRating,
+                loserName, loserDiff, loserInitRating, loserNewRating
+              )
+            }
+
+            case None => "Failed to add game"
+          }
         }
+        case (None, None) => "Players '%s' and '%s' not found".format(
+          winnerName, loserName)
+        case (None, _) => "Player '%s' not found".format(winnerName)
+        case (_, None) => "Player '%s' not found".format(loserName)
       }
-      case (None, None) => "Players '%s' and '%s' not found".format(
-        winnerName, loserName)
-      case (None, _) => "Player '%s' not found".format(winnerName)
-      case (_, None) => "Player '%s' not found".format(loserName)
-    }
 
 
   def ladder: Seq[String] = PlayerDAO.iterator.toSeq.sortWith{
@@ -116,7 +139,8 @@ object PongBot {
   
 
   def main(args: Array[String]){
-    require(args.size > 1, "First arg must be channel to join")
+    require(args.size > 1, 
+            "First arg must be CSV of channels to join and second is bot name")
     val channels = args(0).split(",")
     val name = args(1)
 

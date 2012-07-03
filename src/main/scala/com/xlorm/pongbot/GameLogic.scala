@@ -30,6 +30,16 @@ object GameLogic {
     }
   }
 
+  def isValidGameScore(winner: Int, loser: Int): Boolean = 
+    if (winner == 22 && loser == 20) 
+      true
+    else if (winner != 21) 
+      false
+    else if (loser >=0 && loser <= 19)
+      true
+    else
+      false
+    
 
   def addGame(
     winner: Player,
