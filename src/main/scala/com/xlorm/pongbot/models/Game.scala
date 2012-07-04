@@ -22,7 +22,7 @@ case class Game (
 
   //TODO: long to date string for this below
   def infoString: String = """%s beat %s %d to %d on %s""".format(
-    winnerName, loserName, winnerScore, loserScore, date.toString
+    winnerName, loserName, winnerScore, loserScore, new Date(date)
   )
 
 
