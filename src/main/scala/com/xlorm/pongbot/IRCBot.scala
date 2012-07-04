@@ -89,9 +89,11 @@ object PongBot {
               val winnerDiff = winnerNewRating - winnerInitRating
               val loserDiff = loserNewRating - loserInitRating
   
-              "%s gained %d points (%d to %d) and %s lost %d points (%d to %d)".format(
-                winnerName, winnerDiff, winnerInitRating, winnerNewRating,
-                loserName, loserDiff, loserInitRating, loserNewRating
+              "%s gained %d points (%d to %d)".format(
+                winnerName, winnerDiff, winnerInitRating, winnerNewRating
+              ) + " and " +
+              "%s lost %d points (%d to %d)".format(
+                loserName, -loserDiff, loserInitRating, loserNewRating
               )
             }
 
