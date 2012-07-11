@@ -16,17 +16,17 @@ rated 1500.
 
 Functionality
 -------------
-* PongBot: add player xlorm
+* PongBot: add player xlorm  
   Adds xlorm if that name isn't taken already. xlorm will start off with a
   0-0 record and the default rating.
-* PongBot: ladder
+* PongBot: ladder  
   Displays all of the players' names, records, and ratings ordered by their 
   ratings. 
-* PongBot: kumanan beat xlorm 21 to 19
+* PongBot: kumanan beat xlorm 21 to 19  
   Add a new game to the system. The winner's score must be 21 and the loser's 
   score must be greater than or equal to 0 and less than 20. If the game goes
   to deuce then it should be entered as "22 to 20".
-* xlorm vs kumanan
+* xlorm vs kumanan  
   Display the head-to-head record between these two players.
 
 
