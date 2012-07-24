@@ -34,10 +34,14 @@ TODO
 ----
 * sbt build
 * maven build
+* command like "player xlorm" that lists all of xlorm's games
+* command like "xlorm record" that lists head-to-head records against each 
+  player
+* have bot recognize whatever name is set during initialization
 * put provisional ratings back in
+* suggest "commands" when user input isn't recognized
 * store the irc user who enters a game in the Game object
 * use regexes to make user input more flexible
-* suggest "commands" when user input isn't recognized
 * check the scores coming in: must be (22 to 20) or (21 to 0 >= n >= 19)
 * migrate deuce games to 22-20
 * tests for ELO
