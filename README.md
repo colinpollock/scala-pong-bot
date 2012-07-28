@@ -14,6 +14,18 @@ rated 1200 will gain more points by beating someone rated 1800 than by someone
 rated 1500.
 
 
+Running
+-------
+Enter sbt and then run the main program of the class com.xlorm.pongbot.PongBot.
+The first command line argument should be a comma-separated string of channels
+to join. The second argument is the bot's name.
+
+```
+$ sbt
+> run-main com.xlorm.pongbot.PongBot #wordnik-pong,#pingpong PongBot
+```
+
+
 Functionality
 -------------
 * PongBot: add player xlorm  
@@ -32,7 +44,6 @@ Functionality
 
 TODO
 ----
-* sbt build
 * maven build
 * command like "player xlorm" that lists all of xlorm's games
 * command like "xlorm record" that lists head-to-head records against each 
